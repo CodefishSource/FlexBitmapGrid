@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:local="*"
+			   width="100%" height="100%" xmlns:src="src.*" creationComplete="application1_creationCompleteHandler(event)" xmlns:bitmapGrid="com.codefish.components.bitmapGrid.*">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				bitmapGrid.initialize();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:ArrayCollection id="colours" />
+		<fx:int id="NUM_COLOURS" >1000</fx:int>
+		
+		<fx:Array id="columns">
+			<bitmapGrid:BitmapGridColumn dataField="day1"/>
+			<bitmapGrid:BitmapGridColumn dataField="day2"/>
+			<bitmapGrid:BitmapGridColumn dataField="day3"/>
+			<bitmapGrid:BitmapGridColumn dataField="day4"/>
+			<bitmapGrid:BitmapGridColumn dataField="day5"/>
+			<bitmapGrid:BitmapGridColumn dataField="day6"/>
+			<bitmapGrid:BitmapGridColumn dataField="day7"/>
+			<bitmapGrid:BitmapGridColumn dataField="day8"/>
+			<bitmapGrid:BitmapGridColumn dataField="day9"/>
+			<bitmapGrid:BitmapGridColumn dataField="day10"/>
+			<bitmapGrid:BitmapGridColumn dataField="day11"/>
+			<bitmapGrid:BitmapGridColumn dataField="day12"/>
+			<bitmapGrid:BitmapGridColumn dataField="day13"/>
+			<bitmapGrid:BitmapGridColumn dataField="day14"/>
+			<bitmapGrid:BitmapGridColumn dataField="day15"/>
+			<bitmapGrid:BitmapGridColumn dataField="day16"/>
+			<bitmapGrid:BitmapGridColumn dataField="day17"/>
+			<bitmapGrid:BitmapGridColumn dataField="day18"/>
+			<bitmapGrid:BitmapGridColumn dataField="day19"/>
+			<bitmapGrid:BitmapGridColumn dataField="day20"/>
+			<bitmapGrid:BitmapGridColumn dataField="day21"/>
+			<bitmapGrid:BitmapGridColumn dataField="day22"/>
+			<bitmapGrid:BitmapGridColumn dataField="day23"/>
+			<bitmapGrid:BitmapGridColumn dataField="day24"/>
+			<bitmapGrid:BitmapGridColumn dataField="day25"/>
+			<bitmapGrid:BitmapGridColumn dataField="day26"/>
+			<bitmapGrid:BitmapGridColumn dataField="day27"/>
+			<bitmapGrid:BitmapGridColumn dataField="day28"/>
+			<bitmapGrid:BitmapGridColumn dataField="day29"/>
+			<bitmapGrid:BitmapGridColumn dataField="day30"/>
+			<bitmapGrid:BitmapGridColumn dataField="day31"/>
+			<bitmapGrid:BitmapGridColumn dataField="day32"/>
+			<bitmapGrid:BitmapGridColumn dataField="day33"/>
+		</fx:Array>
+		
+		<s:ArrayCollection id="days">
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+			<fx:Object day1="1" day2="2" day3="3" day4="4" day5="5" 
+					   day6="1" day7="2" day8="3" day9="4" day10="5"
+					   day11="1" day12="2" day13="3" day14="4" day15="5"
+					   day16="1" day17="2" day18="3" day19="4" day20="5"
+					   day21="21" day22="22" day23="23" day24="24" day25="25"
+					   day26="26" day27="27" day28="28" day29="29" day30="30"
+					   day31="31" day32="2" day33="3" day34="4" day35="5"
+					   price="500" color="0xF1F1F1"/>
+		</s:ArrayCollection>
+	</fx:Declarations>
+	
+	<bitmapGrid:BitmapGrid id="bitmapGrid" width="100%" height="100%" columnWidth="100" rowHeight="30"
+					  dataProvider="{days}" columns="{columns}" >
+		<bitmapGrid:headerRenderer>
+			<local:BitmapGridHeaderRenderer />
+		</bitmapGrid:headerRenderer>
+		<bitmapGrid:itemRenderer>
+			<local:BitmapGridItemRenderer  />
+		</bitmapGrid:itemRenderer>
+	</bitmapGrid:BitmapGrid>
+	
+</s:Application>
