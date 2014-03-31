@@ -94,6 +94,10 @@
 			 */ 
 			private function measureViewport():void
 			{
+				if (!columns){
+					return;
+				}
+				
 				numColumns = columns.length;
 				numRows = dataProvider.length;
 				
