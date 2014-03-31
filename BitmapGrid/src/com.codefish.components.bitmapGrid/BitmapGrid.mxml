@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:local="*"
+		 mouseWheel="mouseWheelHandler(event)"
+		 width="100%" height="100%"
+		  xmlns:calendarManager="modules.calendarManager.*"
+		  creationComplete="group1_creationCompleteHandler(event)"
+		  resize="group1_resizeHandler(event)"
+		 >
+	<fx:Declarations>
+		<fx:Number id="horizontalGap">0</fx:Number>
+		<fx:Number id="verticalGap">0</fx:Number>
+		<fx:Array id="columns"/>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.codefish.components.bitmapGrid.IBitmapGridRenderer;
+			import com.codefish.components.bitmapGrid.IBitmapGridColumn;
+			import com.codefish.components.bitmapGrid.BitmapGridEvent;
+			
+			import mx.binding.utils.BindingUtils;
+			import mx.collections.ICollectionView;
+			import mx.collections.IList;
+			import mx.events.FlexEvent;
+			import mx.events.ResizeEvent;
+			
+			private var numColumns:int;
+			private var numRows:int;
+			private var _dataProvider:IList;
+			
+			[Bindable]
+			public var itemRenderer:IBitmapGridRenderer;
+			[Bindable]
+			public var headerRenderer:IBitmapGridRenderer;
+			
+			[Bindable]
+			public var scrollerWidth:int = 14;
+			
+			[Bindable]
+			public var headerHeight:int = 40;
+			
+			public var selectedIndex:int = -1;			
+			
+			public var myHeight:Number;
+			public var myWidth:Number;
+			
+			public var backgroundColor:uint=0xEBEBEB;
+			
+			[Bindable]
+			public var headerBackgroundColor:uint=0x28FFFF;
+			
+			public var columnWidth:Number = 30;
+			
+			[Bindable]
+			public var selectedItem:Object;
+			
+			[Bindable]
+			public var selectionCanvas:BitmapData;
+			[Bindable]
+			public var rollOverCanvas:BitmapData;
+			
+			public var selectionColor:uint = 0x50777777;
+			public var rollOverColor:uint = 0x20777777;
+			
+			[Bindable]
+			public var rowHeight:Number = 30;
+			
+			public var lockedColumns:int = 0;
+			
+			public var lockHeader:Boolean = true;
+			public var lockedColumnWidth:Number = 0;
+			
+			private var totalColumnWidth:Number = 0;
+			private var totalRowHeight:Number = 0;
+			
+			public function get dataProvider():IList
+			{
+				return _dataProvider;
+			}
+
+			public function set dataProvider(value:IList):void
+			{
+				_dataProvider = value;
+				invalidateDisplayList();
+			}
+
+			/**
+			 * 	Calculate the numner of rows and columns needed to populate the viewport
+			 *  Create 
+			 */ 
+			private function measureViewport():void
+			{
+				numColumns = columns.length;
+				numRows = dataProvider.length;
+				
+				myHeight = height - hScroller.height - header.height;
+				myWidth = width - vScroller.width;
+				
+				//todo only create a new canvas if necessary
+				itemRenderer.canvas = new BitmapData(myWidth,myHeight,false,backgroundColor);
+				
+				itemRenderer.height= rowHeight;
+				
+				headerRenderer.canvas = new BitmapData(myWidth,headerHeight,false,headerBackgroundColor);
+				headerRenderer.height = headerHeight;
+
+				selectionCanvas = new BitmapData(myWidth,rowHeight,true,selectionColor);
+				rollOverCanvas = new BitmapData(myWidth,rowHeight,true,rollOverColor);
+				
+				totalColumnWidth = getTotalColumnWidth();
+				totalRowHeight = (rowHeight+verticalGap) * numRows;
+				
+				vScroller.maximum = Math.max(0,totalRowHeight-myHeight);
+				hScroller.maximum = Math.max(0,totalColumnWidth-myWidth);
+			
+				if (lockedColumns && columns.length >0)
+				{
+					lockedColumnWidth = columns[0].width;
+				}
+				
+			}
+			
+			/**
+			 * 	@param index the dataprovider item index
+			 *  @return the y position of the item to be rendered
+			 */
+			private function getItemY(row:int):Number
+			{
+				return row*(rowHeight+verticalGap) - vScroller.value;
+			}
+			
+			private function getRowIndex(mouseY:Number):int
+			{
+				return Math.floor((mouseY+vScroller.value) / (rowHeight + verticalGap));
+			}
+
+			private function getColumnIndex(mouseX:Number):int
+			{
+				return getIntersection(mouseX + hScroller.value);
+			}
+			
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				super.updateDisplayList(unscaledWidth,unscaledHeight);
+				
+				if (dataProvider && dataProvider.length >0 &&  itemRenderer.canvas && columns.length > 0)
+				{
+					drawDataGridHeader();
+					drawDataGrid();
+				}
+			
+			}
+			
+			public function drawDataGridHeader():void{
+				
+				headerRenderer.canvas.lock();
+				headerRenderer.canvas.fillRect(headerRenderer.canvas.rect,headerBackgroundColor);
+				
+				var HvisibleItems:Array = getVisibleColumns();
+				
+				
+				var firstIndex:int = HvisibleItems[0];
+				var lastIndex:int = HvisibleItems[1];
+				
+				var myX:Number = 0;
+				var lockedHeaderColumn:int =0;
+				if (lockHeader){
+					lockedHeaderColumn = lockedColumns;
+					myX = lockedColumnWidth;
+				} 
+				
+				for (var col:int=lockedHeaderColumn;col<lastIndex;col++){
+					
+					if (col >= firstIndex && col<=lastIndex){
+						headerRenderer.render(myX - hScroller.value,0,col,0,null,columns[col]);
+					}
+					
+					var column:IBitmapGridColumn = columns[col] as IBitmapGridColumn;
+					
+					var myWidth:Number = column.width;
+					
+					if (column.width>0){
+						myWidth = column.width;
+					}
+					else{
+						myWidth = columnWidth;
+					}
+					
+					myX += myWidth; 
+				}
+				
+				if (lockedHeaderColumn){
+					headerRenderer.render(0,0,col,0,null,columns[0]);
+				}
+				
+				
+				headerRenderer.canvas.unlock();
+				
+			}
+			
+			
+			public function drawDataGrid():void{
+				
+				itemRenderer.canvas.lock();
+				itemRenderer.canvas.fillRect(itemRenderer.canvas.rect,backgroundColor);
+				
+				var visibleRows:Array = getVisibleRows();
+				var visibleColumns:Array = getVisibleColumns();
+				
+				var firstIndex:int = visibleColumns[0];
+				var lastIndex:int = visibleColumns[1];
+				
+				//loop from 0 to 15 all visible items
+				for (var row:int=visibleRows[0]; row<visibleRows[1]; row++)
+				{
+					var item:Object = dataProvider.getItemAt(row);
+					
+					var myX:Number = lockedColumnWidth;
+					
+					for (var col:int=lockedColumns;col<lastIndex;col++){
+						
+						if (col >= firstIndex && col<=lastIndex){
+							itemRenderer.render(myX - hScroller.value,getItemY(row),row,col,item,columns[col]);
+						}
+						
+						var column:IBitmapGridColumn = columns[col] as IBitmapGridColumn;
+						
+						var myWidth:Number = column.width;
+						
+						if (column.width>0){
+							myWidth = column.width;
+						}
+						else{
+							myWidth = columnWidth;
+						}
+						
+						myX += myWidth; 
+					}
+					
+					if (lockedColumns){
+						itemRenderer.render(0,getItemY(row),row,0,item,columns[0]);
+					}
+					
+					
+				}
+				//Draw Highlight
+				drawSelection();
+				
+				itemRenderer.canvas.unlock();
+				
+			}
+			
+			
+			private function getVisibleRows():Array
+			{
+				var items:Array;
+				var currentPos:Number = vScroller.value;
+				
+				var firstItemIndex:int = Math.floor(currentPos/(rowHeight+verticalGap));
+				
+				var lastIndex:int = 0;
+				if (vScroller.maximum==0){
+					lastIndex = numRows;
+				}
+				else{
+					lastIndex = firstItemIndex + Math.ceil(myHeight / rowHeight);
+				}
+				lastIndex+=1;
+				
+				if (lastIndex >= numRows){
+					lastIndex = numRows;
+				}
+				
+				return [firstItemIndex,lastIndex];
+			}
+			
+			private function getVisibleColumns():Array
+			{
+				var items:Array;
+				var currentPos:Number = hScroller.value;
+				
+				var firstItemIndex:int = getIntersection(currentPos);
+				
+				var lastIndex:int = 0;
+				if (hScroller.maximum==0){
+					lastIndex = numColumns;
+				}
+				else{
+					lastIndex = getIntersection(currentPos+myWidth);
+					lastIndex+=1;
+				}
+				
+			  
+				if (lastIndex >= numColumns){
+					lastIndex = numColumns;
+				}
+				
+				return [firstItemIndex,lastIndex];
+			}
+			
+			public function getIntersection(currentPos:Number):int{
+				var totalWidth:Number = 0;
+				var colIndex:int = 0
+				for (var i:int = 0;i<columns.length;i++){
+					var col:IBitmapGridColumn = columns[i];
+					totalWidth+=col.width;
+					colIndex = i;
+					
+					if (currentPos <= totalWidth){
+						return colIndex;
+					}
+				}
+				return 0;
+			}
+			
+			public function getTotalColumnWidth():Number{
+				
+				var totalWidth:Number = 0;
+				for (var i:int = 0;i<columns.length;i++){
+					var col:IBitmapGridColumn = columns[i];
+					totalWidth+=col.width;
+				}
+				
+				return totalWidth;
+			}
+			
+			protected function mouseWheelHandler(event:MouseEvent):void
+			{
+				vScroller.value -= event.delta * 3;
+				invalidateDisplayList();		
+			}
+			
+			public var mouseOverRowIndex:int = -1;
+			public var mouseOverColumnIndex:int = -1;
+			
+			protected function mouseMoveHandler(event:MouseEvent):void
+			{
+				var newRowIndex:int = getRowIndex(event.localY);
+				if (newRowIndex < 0 || newRowIndex >= numRows){
+					return;
+				}
+				
+				var newColumnIndex:int = getColumnIndex(event.localX);
+				
+				if (newColumnIndex < 0 || newColumnIndex >= numColumns){
+					return;
+				}
+				
+				var mouseMoved:Boolean = false;
+				if (newRowIndex != mouseOverRowIndex){
+					mouseOverRowIndex = newRowIndex;
+					mouseMoved = true;
+					drawRollOver();
+				}
+				if (newColumnIndex != mouseOverColumnIndex){
+					mouseOverColumnIndex = newColumnIndex;
+					mouseMoved = true;
+				}
+				
+				
+				if (mouseMoved){
+					
+					var row:Object = dataProvider.getItemAt(mouseOverRowIndex);
+					var cell:Object;
+					if (row){
+						cell = row[columns[mouseOverColumnIndex].dataField];
+					}
+					var calEvent:BitmapGridEvent = new BitmapGridEvent(BitmapGridEvent.MOUSE_OVER,mouseOverRowIndex,mouseOverColumnIndex,row,cell);
+					dispatchEvent(calEvent);
+				}
+			}
+			
+			protected function clickHandler(event:MouseEvent):void
+			{
+				
+				var newIndex:int = getRowIndex(event.localY);
+				
+				if (newIndex == -1){
+					selectedIndex = -1;
+					selectedItem = null;
+				}
+				else{
+					if (newIndex != selectedIndex){
+						selectedIndex = newIndex;
+						selectedItem = dataProvider.getItemAt(selectedIndex);
+						
+						drawSelection();
+					}
+				}
+			}
+			
+			
+			public function drawSelection():void{
+				
+				selectionCanvas.lock();
+				
+				if (selectedIndex>=0){
+					selection.y = getItemY(selectedIndex);
+					selection.visible = true;
+				}
+				else{
+					selection.visible = false;
+				}
+				
+				selectionCanvas.unlock();
+				
+			}
+			public function drawRollOver():void{
+				
+				rollOverCanvas.lock();
+				
+				if (mouseOverRowIndex>=0){
+					rollOver.y = getItemY(mouseOverRowIndex);
+					rollOver.visible = true;
+				}
+				else{
+					rollOver.visible = false;
+				}
+				
+				rollOverCanvas.unlock();
+				
+			}
+			
+			public function initializeCalendar():void
+			{
+				measureViewport();
+			}
+			
+			protected function group1_resizeHandler(event:ResizeEvent):void
+			{
+				refresh();
+			}
+			
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+				BindingUtils.bindSetter(browserResize,this,"y",false,true);
+			}
+			
+			public function browserResize(val:Number):void{
+				refresh();
+			}
+			
+			public function refresh():void
+			{
+				if (dataProvider is ICollectionView){
+					(dataProvider as ICollectionView).refresh();
+				}
+				clearSelectedItem();
+				
+				measureViewport();
+				invalidateDisplayList();
+			}
+			
+			public function clearSelectedItem():void{
+				selectedItem = null;
+				selectedIndex = -1;
+			}
+			
+			protected function group2_doubleClickHandler(event:MouseEvent):void
+			{
+				var calEvent:BitmapGridEvent = new BitmapGridEvent (BitmapGridEvent.DOUBLE_CLICK,selectedIndex,0,selectedItem,null);
+				dispatchEvent(calEvent);
+			}
+			
+			protected function group2_rollOutHandler(event:MouseEvent):void
+			{
+				mouseOverRowIndex = -1;
+				mouseOverColumnIndex = -1;
+				drawRollOver();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:Group width="100%" height="{headerHeight}"  top="0">
+		<s:Rect width="100%" height="100%">
+			<s:fill>
+				<s:SolidColor color="{headerBackgroundColor}"/>
+			</s:fill>
+		</s:Rect>
+		<s:BitmapImage id="header" width="100%" height="100%" right="{scrollerWidth}" 
+					   source="{headerRenderer.canvas}"  >
+		</s:BitmapImage>
+	</s:Group>	
+	
+	
+	<s:Group click="clickHandler(event)" rollOut="group2_rollOutHandler(event)" doubleClickEnabled="true" doubleClick="group2_doubleClickHandler(event)" mouseMove="mouseMoveHandler(event)" width="100%" height="100%" top="{headerHeight}" bottom="{scrollerWidth}" right="{scrollerWidth}" clipAndEnableScrolling="true">
+		<s:BitmapImage id="bmp" width="100%" height="100%" 
+					   source="{itemRenderer.canvas}"  >
+		</s:BitmapImage>
+		
+		<s:BitmapImage id="rollOver" width="100%" visible="false"  height="{rowHeight}" 
+					   source="{rollOverCanvas}"  >
+		</s:BitmapImage>
+		
+		<s:BitmapImage id="selection" width="100%" visible="false"  height="{rowHeight}" 
+					   source="{selectionCanvas}"  >
+		</s:BitmapImage>
+		
+	</s:Group>
+	
+	<s:VScrollBar id="vScroller" right="0" width="{scrollerWidth}" top="{headerHeight}" bottom="{scrollerWidth}" height="100%" 
+				  minimum="0" maximum="300"
+				  >
+		<s:change>
+			<![CDATA[
+				invalidateDisplayList();
+			]]>
+		</s:change>
+	</s:VScrollBar>
+	
+	<s:HScrollBar id="hScroller" bottom="0" height="{scrollerWidth}" right="{scrollerWidth}" width="100%" 
+				  minimum="0" maximum="300"
+				  >
+		<s:change>
+			<![CDATA[
+				invalidateDisplayList();
+			]]>
+		</s:change>
+	</s:HScrollBar>
+	
+</s:Group>
