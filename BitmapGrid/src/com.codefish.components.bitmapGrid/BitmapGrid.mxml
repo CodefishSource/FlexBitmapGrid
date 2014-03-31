@@ -11,13 +11,12 @@
 	<fx:Declarations>
 		<fx:Number id="horizontalGap">0</fx:Number>
 		<fx:Number id="verticalGap">0</fx:Number>
-		<fx:Array id="columns"/>
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import com.codefish.components.bitmapGrid.IBitmapGridRenderer;
-			import com.codefish.components.bitmapGrid.IBitmapGridColumn;
 			import com.codefish.components.bitmapGrid.BitmapGridEvent;
+			import com.codefish.components.bitmapGrid.IBitmapGridColumn;
+			import com.codefish.components.bitmapGrid.IBitmapGridRenderer;
 			
 			import mx.binding.utils.BindingUtils;
 			import mx.collections.ICollectionView;
@@ -39,6 +38,10 @@
 			
 			[Bindable]
 			public var headerHeight:int = 40;
+			
+			[ArrayElementType("com.codefish.components.bitmapGrid.IBitmapGridColumn")]
+			[Bindable]
+			public var columns:Array;
 			
 			public var selectedIndex:int = -1;			
 			
@@ -104,7 +107,7 @@
 				
 				headerRenderer.canvas = new BitmapData(myWidth,headerHeight,false,headerBackgroundColor);
 				headerRenderer.height = headerHeight;
-
+				
 				selectionCanvas = new BitmapData(myWidth,rowHeight,true,selectionColor);
 				rollOverCanvas = new BitmapData(myWidth,rowHeight,true,rollOverColor);
 				
@@ -172,26 +175,25 @@
 				
 				for (var col:int=lockedHeaderColumn;col<lastIndex;col++){
 					
-					if (col >= firstIndex && col<=lastIndex){
-						headerRenderer.render(myX - hScroller.value,0,col,0,null,columns[col]);
-					}
-					
 					var column:IBitmapGridColumn = columns[col] as IBitmapGridColumn;
 					
-					var myWidth:Number = column.width;
-					
-					if (column.width>0){
-						myWidth = column.width;
-					}
-					else{
-						myWidth = columnWidth;
+					if (!column.width){
+						column.width = columnWidth;
 					}
 					
-					myX += myWidth; 
+					if (col >= firstIndex && col<=lastIndex){
+						headerRenderer.render(myX - hScroller.value,0,0,col,null,columns[col]);
+					}
+					
+					if (!column.headerText){
+						column.headerText = column.dataField;
+					}
+					
+					myX += column.width; 
 				}
 				
 				if (lockedHeaderColumn){
-					headerRenderer.render(0,0,col,0,null,columns[0]);
+					headerRenderer.render(0,0,0,col,null,columns[0]);
 				}
 				
 				
@@ -220,22 +222,17 @@
 					
 					for (var col:int=lockedColumns;col<lastIndex;col++){
 						
+						var column:IBitmapGridColumn = columns[col] as IBitmapGridColumn;
+						
+						if (!column.width){
+							column.width = columnWidth;
+						}
+						
 						if (col >= firstIndex && col<=lastIndex){
 							itemRenderer.render(myX - hScroller.value,getItemY(row),row,col,item,columns[col]);
 						}
 						
-						var column:IBitmapGridColumn = columns[col] as IBitmapGridColumn;
-						
-						var myWidth:Number = column.width;
-						
-						if (column.width>0){
-							myWidth = column.width;
-						}
-						else{
-							myWidth = columnWidth;
-						}
-						
-						myX += myWidth; 
+						myX += column.width; 
 					}
 					
 					if (lockedColumns){

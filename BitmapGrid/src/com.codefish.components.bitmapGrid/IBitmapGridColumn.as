@@ -9,7 +9,7 @@ package com.codefish.components.bitmapGrid
 		function get headerText():String;
 		function set headerText(val:String):void;
 		
-		function set width(val:Number):void;
-		function get width():Number;
+		function set width(val:uint):void;
+		function get width():uint;
 	}
 }

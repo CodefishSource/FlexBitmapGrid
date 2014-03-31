@@ -9,14 +9,14 @@ package com.codefish.components.bitmapGrid
 		
 		private var _dataField:String;
 		private var _headerText:String;
-		private var _width:Number;
+		private var _width:uint;
 		
-		public function get width():Number
+		public function get width():uint
 		{
 			return _width;
 		}
 
-		public function set width(value:Number):void
+		public function set width(value:uint):void
 		{
 			_width = value;
 		}
