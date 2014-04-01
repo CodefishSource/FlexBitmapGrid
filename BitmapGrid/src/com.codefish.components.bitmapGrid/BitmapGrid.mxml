@@ -328,7 +328,7 @@
 			
 			protected function mouseWheelHandler(event:MouseEvent):void
 			{
-				vScroller.value -= event.delta * 3;
+				vScroller.value -= event.delta * 4;
 				invalidateDisplayList();		
 			}
 			
