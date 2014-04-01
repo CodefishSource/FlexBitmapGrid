@@ -151,7 +151,7 @@
 			{
 				super.updateDisplayList(unscaledWidth,unscaledHeight);
 				
-				if (dataProvider && dataProvider.length >0 &&  itemRenderer.canvas && columns.length > 0)
+				if (itemRenderer.canvas && columns.length > 0)
 				{
 					drawDataGridHeader();
 					drawDataGrid();
@@ -377,7 +377,7 @@
 				
 				var newIndex:int = getRowIndex(event.localY);
 				
-				if (newIndex == -1){
+				if (newIndex == -1 || newIndex >= numRows){
 					selectedIndex = -1;
 					selectedItem = null;
 				}
