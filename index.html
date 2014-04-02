@@ -40,18 +40,17 @@ It uses only one ItemRenderer to draw all the cells.
 We use it for a calendar with 365 columns and 500 Rows. It never hangs, renders in less than a second a scrolls like a charm.
 </p>
 
-<pre>
-	<bitmapGrid:BitmapGrid id="bitmapGrid" width="100%" height="100%" columnWidth="100" rowHeight="30"
-					  dataProvider="{days}" columns="{columns}" >
-		<bitmapGrid:headerRenderer>
-			<local:BitmapGridHeaderRenderer />
-		</bitmapGrid:headerRenderer>
-		<bitmapGrid:itemRenderer>
-			<local:BitmapGridItemRenderer  />
-		</bitmapGrid:itemRenderer>
-	</bitmapGrid:BitmapGrid>
-</pre>
-
+ <pre><code>
+	 <![CDATA[
+         <div>
+             <ol>
+                 <li>a</li>
+                 <li>b</li>
+                 <li>c</li>
+             </ol>
+         </div>
+     ]]>
+  </code></pre>
 <p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
 
 <iframe src="BitmapGridTest.html" width="400" height="400" scrolling="no" frameborder="0"/>
