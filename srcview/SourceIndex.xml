@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index>
+	<title>Source of BitmapGridTestProject</title>
+	<nodes>
+		<node label="src">
+			<node icon="actionScriptIcon" label="BitmapGridHeaderRenderer.as" url="source/BitmapGridHeaderRenderer.as.html"/>
+			<node icon="actionScriptIcon" label="BitmapGridItemRenderer.as" url="source/BitmapGridItemRenderer.as.html"/>
+			<node icon="mxmlAppIcon" selected="true" label="BitmapGridTest.mxml" url="source/BitmapGridTest.mxml.html"/>
+		</node>
+	</nodes>
+	<zipfile label="Download source (ZIP, 8K)" url="BitmapGridTestProject.zip">
+	</zipfile>
+	<sdklink label="Download Flex SDK" url="http://www.adobe.com/go/flex451_sdk_download">
+	</sdklink>
+</index>
