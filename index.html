@@ -41,7 +41,17 @@ We use it for a calendar with 365 columns and 500 Rows. It never hangs, renders 
 </p>
 
  <pre><code>
-	 dfsafsad
+	 <![CDATA[
+	<bitmapGrid:BitmapGrid id="bitmapGrid" width="100%" height="100%" columnWidth="100" rowHeight="30"
+					  dataProvider="{days}" columns="{columns}" >
+		<bitmapGrid:headerRenderer>
+			<local:BitmapGridHeaderRenderer />
+		</bitmapGrid:headerRenderer>
+		<bitmapGrid:itemRenderer>
+			<local:BitmapGridItemRenderer  />
+		</bitmapGrid:itemRenderer>
+	</bitmapGrid:BitmapGrid>
+     ]]>
   </code></pre>
 <p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
 
